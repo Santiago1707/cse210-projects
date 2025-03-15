@@ -7,10 +7,18 @@ class Program
         Journal myJournal = new Journal();
         PromptGenerator promptGen = new PromptGenerator();
         bool running = true;
+        bool isFirstRun = true; // Bandera para mostrar el mensaje solo la primera vez
 
         while (running)
         {
-            Console.WriteLine("Welcome to the Journal App!");
+            if (isFirstRun)
+            {
+                Console.WriteLine("Welcome to your personal journal!");
+                Console.WriteLine("This program helps you record daily events.");
+                Console.WriteLine("-------------------------------------------------");
+                isFirstRun = false; // Después de mostrarlo una vez, nunca se mostrará de nuevo
+            }
+
             Console.WriteLine("\nJournal Menu:");
             Console.WriteLine("1. Write a new entry");
             Console.WriteLine("2. Display all entries");
