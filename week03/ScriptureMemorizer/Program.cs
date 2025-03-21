@@ -1,21 +1,40 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
-        // Create scripture reference
-        Reference reference = new Reference("Proverbs", 3, 5, 6);
+        // Create a list of scriptures (like a database)
+        List<Scripture> scriptures = new List<Scripture>
+        {
+            new Scripture(new Reference("John", 3, 16), "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."),
+            new Scripture(new Reference("Proverbs", 3, 5, 6), "Trust in the Lord with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths."),
+            new Scripture(new Reference("Philippians", 4, 13), "I can do all things through Christ who strengthens me")
+        };
 
-        // Create scripture passage
-Scripture scripture = new Scripture(reference, "Trust in the Lord with all thine heart, and lean not unto thine own understanding. " +"In all thy ways acknowledge him, and he shall direct thy paths.");
+        Console.WriteLine("Select a scripture to memorize:");
+        for (int i = 0; i < scriptures.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {scriptures[i].GetDisplayText()}");
+        }
 
+        // Get user choice
+        int choice;
+        do
+        {
+            Console.Write("\nEnter the number of the scripture: ");
+        }
+        while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > scriptures.Count);
+
+        Scripture selectedScripture = scriptures[choice - 1];
+
+        // Scripture memorization process
         while (true)
         {
             Console.Clear();
-            Console.WriteLine(scripture.GetDisplayText());
-            Console.Write("\nPress Enter to hide words or type 'quit' to exit: ");
-            
+            Console.WriteLine(selectedScripture.GetDisplayText());
+            Console.WriteLine("\nPress Enter to hide words or type 'quit' to exit.");
 
             string input = Console.ReadLine().Trim().ToLower();
 
@@ -24,13 +43,13 @@ Scripture scripture = new Scripture(reference, "Trust in the Lord with all thine
                 break;
             }
 
-            scripture.HideRandomWords(2); // Amount of words to hide 
+            selectedScripture.HideRandomWords(2); // Hide 2 words at a time
 
-            if (scripture.IsCompletelyHidden())
+            if (selectedScripture.IsCompletelyHidden())
             {
                 Console.Clear();
-                Console.WriteLine(scripture.GetDisplayText());
-                Console.WriteLine("\nAll words are hidden!");
+                Console.WriteLine(selectedScripture.GetDisplayText());
+                Console.WriteLine("\nAll words are hidden! Program will now exit.");
                 break;
             }
         }
