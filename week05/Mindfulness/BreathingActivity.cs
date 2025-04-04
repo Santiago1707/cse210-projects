@@ -12,7 +12,6 @@ class BreathingActivity : Activity
     public override void Run()
     {
         DisplayStartingMessage();
-        Console.WriteLine("Now...");
         ShowSpinner(3);
 
         int elapsedTime = 0;

@@ -26,8 +26,8 @@ class Activity
         Console.WriteLine($"{_description}\n");
         Console.Write("How long, (in seconds) would you like for this section?: ");
         _duration = int.Parse(Console.ReadLine() ?? "30");
-        Console.WriteLine("Get Ready...\n");
-        ShowSpinner(3);
+        Console.WriteLine("Get Ready...");
+        
     }
 
     protected void DisplayEndingMessage()
