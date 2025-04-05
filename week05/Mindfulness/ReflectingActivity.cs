@@ -11,7 +11,7 @@ class ReflectingActivity : Activity
 
     public ReflectingActivity()
     {
-        _name = "Reflection Activity";
+        _name = "Reflecting Activity";
         _description = "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.";
 
         _prompts = new List<string>
@@ -42,12 +42,10 @@ class ReflectingActivity : Activity
     public override void Run()
     {
         DisplayStartingMessage();
-        Console.WriteLine("Get ready...");
-        ShowSpinner(3);
 
         DisplayPrompt();
-        ShowCountDown(5);
-
+        Console.Clear();
+        Console.WriteLine("Now ponder on each of the following questions as they relate to this prompt.\n");
         AskReflectionQuestions();
         DisplayEndingMessage();
     }
@@ -80,25 +78,33 @@ class ReflectingActivity : Activity
 
     private void DisplayPrompt()
     {
+        Console.WriteLine("Consider the following prompt:");
         string prompt = GetRandomPrompt();
-        Console.WriteLine($"\n{prompt}\nThink about this moment...");
+        Console.WriteLine($"\n--- {prompt} ---");
+        Console.WriteLine("\nWhen you have something in mind, press Enter to continue.");
+        Console.ReadLine(); // Wait for the user to press Enter
     }
 
     private void DisplayQuestion(string question)
     {
-        Console.WriteLine($"\n{question}");
+        Console.Write($"\n>{question} ");
+        ShowSpinner(15); 
+        Console.WriteLine(); // Move to the next line after showing the spinner
     }
 
     private void AskReflectionQuestions()
     {
         int elapsedTime = 0;
-
+        Console.WriteLine("You may begin in 5 seconds...");
+        ShowCountDown(5);
+        Console.Clear();
         while (elapsedTime < _duration)
         {
             string question = GetRandomQuestion();
             DisplayQuestion(question);
-            ShowCountDown(5);
-            elapsedTime += 5;
+            elapsedTime += 15;
+
         }
     }
+
 }

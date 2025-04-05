@@ -22,19 +22,21 @@ class Activity
     protected void DisplayStartingMessage()
     {
         Console.Clear();
-        Console.WriteLine($"{_name}\n");
+        Console.WriteLine($"Welcome to the {_name}\n");
         Console.WriteLine($"{_description}\n");
         Console.Write("How long, (in seconds) would you like for this section?: ");
         _duration = int.Parse(Console.ReadLine() ?? "30");
-        Console.WriteLine("Get Ready...");
-        
+        Console.WriteLine("\nGet Ready...");
+        ShowSpinner(4);
+        Console.Clear();
     }
 
     protected void DisplayEndingMessage()
     {
-        Console.WriteLine("Good job! You have completed the activity.");
-        Console.WriteLine($"You completed the {_name} for {_duration} seconds.");
+        Console.WriteLine("\nGood job! You have completed the activity.");
         ShowSpinner(3);
+        Console.WriteLine($"You completed the {_name} for {_duration} seconds.");
+        ShowSpinner(5);
     }
 
     protected void ShowSpinner(int seconds)
@@ -44,12 +46,27 @@ class Activity
             "|", "/", "-", "\\", "|", "/", "-", "\\"
         };
 
-        foreach (string s in showSpinner)
+        DateTime startTime = DateTime.Now;
+        DateTime endTime = startTime.AddSeconds(seconds);
+
+        int i = 0;
+
+        while (DateTime.Now < endTime)
         {
+            string s = showSpinner[i % showSpinner.Count];
             Console.Write(s);
-            Thread.Sleep(1000);
-            Console.Clear();
+            Thread.Sleep(200);
+            Console.Write("\b \b");
+
+            i++;
+
+            if (i >= showSpinner.Count)
+            {
+                i = 0; // Reset the index to loop through the spinner characters
+            }
         }
+
+
     }
 
     protected void ShowCountDown(int seconds)
