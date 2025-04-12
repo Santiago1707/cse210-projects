@@ -2,7 +2,7 @@ public class EternalGoal : Goal
 {
     private int _timesCompleted;
 
-    public EternalGoal(string name, string description, string points) 
+    public EternalGoal(string name, string description, string points)
         : base(name, description, points)
     {
         _timesCompleted = 0;
@@ -17,14 +17,8 @@ public class EternalGoal : Goal
     {
         return false; // Eternal goals are never complete
     }
-
-    public override string GetDetailsString()
-    {
-        return $"[ ] {base.GetDetailsString()} -- Completed {_timesCompleted} times";
-    }
-
     public override string GetStringRepresentation()
     {
-        return $"EternalGoal|{_shortName}|{_description}|{_points}|{_timesCompleted}";
+        return $"EternalGoal|[ ]{_shortName}|{_description}|{_points}|{_timesCompleted}";
     }
 }
