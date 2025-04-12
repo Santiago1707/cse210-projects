@@ -110,7 +110,7 @@ public class GoalManager
                 Console.WriteLine($"Bonus! You earned {checklistGoal.GetBonus()} extra points!");
             }
 
-            Console.WriteLine($"You now have {_score} points.");
+            Console.WriteLine($"Congratulations! You have earned {_score} points!");
         }
         else
         {
